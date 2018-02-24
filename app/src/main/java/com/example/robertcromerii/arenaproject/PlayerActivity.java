@@ -11,7 +11,5 @@ public class PlayerActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator);
-
-        final TextView tvWelcomeUserText = (TextView)findViewById(R.id.tvWelcomeUserText);
     }
 }

@@ -1,32 +1,13 @@
 package com.example.robertcromerii.arenaproject;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,17 +16,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.transform.Result;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class loginActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity
 {
     private static final String TAG = "LoginActivity";
     EditText login_UserPassword, login_Username;
@@ -75,8 +50,8 @@ public class loginActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent registerIntent = new Intent(loginActivity.this, registerActivity.class);
-                loginActivity.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(registerIntent);
             }
         });
 
@@ -93,12 +68,12 @@ public class loginActivity extends AppCompatActivity
         switch(userRoleID)
         {
             case "0":
-                Intent operatorIntent = new Intent(loginActivity.this, operatorActivity.class);
-                loginActivity.this.startActivity(operatorIntent);
+                Intent operatorIntent = new Intent(LoginActivity.this, OperatorActivity.class);
+                LoginActivity.this.startActivity(operatorIntent);
                 break;
             default:
-                Intent loginIntent = new Intent(loginActivity.this, loginActivity.class);
-                loginActivity.this.startActivity(loginIntent);
+                Intent loginIntent = new Intent(LoginActivity.this, LoginActivity.class);
+                LoginActivity.this.startActivity(loginIntent);
         }
     }
     private class Background extends AsyncTask<Void,Void,Void>

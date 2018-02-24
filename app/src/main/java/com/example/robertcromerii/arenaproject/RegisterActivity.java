@@ -9,13 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class registerActivity extends AppCompatActivity
+public class RegisterActivity extends AppCompatActivity
 {
     EditText register_UserPassword, register_Username;
 
@@ -37,8 +35,8 @@ public class registerActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent loginIntent = new Intent(registerActivity.this, loginActivity.class);
-                registerActivity.this.startActivity(loginIntent);
+                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                RegisterActivity.this.startActivity(loginIntent);
             }
         });
 

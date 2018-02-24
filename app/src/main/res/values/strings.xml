@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Arena Mobile</string>
     <string name="title_activity_login">Arena Login</string>
-    <string name ="title_activity_register">Arena Sign-up</string>
+    <string name="title_activity_register">Arena Sign-up</string>
+    <string name="title_activity_Operator">Welcome Operator</string>
+    <string name="title_activity_LeagueOwner">Welcome League Owner</string>
+    <string name="title_activity_Player">Welcome Player</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -21,4 +24,10 @@
     <string name="register_text_UserRegisterLink">New User? Click here to register.</string>
     <string name="login_text_UserLoginLink">Already a user? Click here to Login.</string>
     <string name="welcomeUserText">Welcome</string>
+    <string name="title_activity_operator">activity_operator</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
