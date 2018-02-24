@@ -47,6 +47,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class loginActivity extends AppCompatActivity
 {
+    private static final String TAG = "LoginActivity";
     EditText login_UserPassword, login_Username;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,35 +88,67 @@ public class loginActivity extends AppCompatActivity
             }
         });
     }
-
+    protected void loginRoleActivty(String userRoleID)
+    {
+        switch(userRoleID)
+        {
+            case "0":
+                Intent operatorIntent = new Intent(loginActivity.this, operatorActivity.class);
+                loginActivity.this.startActivity(operatorIntent);
+                break;
+            default:
+                Intent loginIntent = new Intent(loginActivity.this, loginActivity.class);
+                loginActivity.this.startActivity(loginIntent);
+        }
+    }
     private class Background extends AsyncTask<Void,Void,Void>
     {
         private String username = login_Username.getText().toString();
         private String userPassword = login_UserPassword.getText().toString();
+        private PreparedStatement preparedStatement = null;
+        private Connection connection = null;
         @Override
         protected Void doInBackground(Void... params)
         {
+            Log.d(TAG, "Username: " + username + "||" + "User Password:" + userPassword);
             try
             {
-                Connection connection = DBHandler.getConnection();
-                String loginUserRequest = "SELECT * FROM users WHERE userName = "+username+" and userPassword =" + userPassword;
+                connection = DBHandler.getConnection();
+                String loginUserRequest = "SELECT userRoleID FROM arenadatabase.users WHERE userName = ? and userPassword = ?";
 
-                PreparedStatement preparedStatement = connection.prepareStatement(loginUserRequest);
+                preparedStatement = connection.prepareStatement(loginUserRequest);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, userPassword);
-                ResultSet resultSet = connection.createStatement().executeQuery(loginUserRequest);
-
+                ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next())
                 {
-                    String userID = resultSet.getString("userID");
                     String userRoleID = resultSet.getString("userRoleID");
-
-                    Log.d("User Info:", "Username -" + username + " User ID - "+ userID + " User Role ID " + userRoleID);
+                    loginRoleActivty(userRoleID);
                 }
             }
             catch (SQLException e)
             {
                 e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (preparedStatement != null)
+                    {
+                        preparedStatement.close();
+                    }
+
+                    if (connection != null)
+                    {
+                        connection.close();
+                    }
+                }
+                catch(Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+
             }
             return null;
         }
