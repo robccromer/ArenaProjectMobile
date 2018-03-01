@@ -3,6 +3,9 @@ package com.example.robertcromerii.arenaproject;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,21 +20,12 @@ public class OperatorActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,7 +48,8 @@ public class OperatorActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.operator, menu);
         return true;
@@ -79,20 +74,35 @@ public class OperatorActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
+        Fragment operatorNavigationDrawFramgement = null;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_operator_ManageUsers)
+        if (id == R.id.nav_operator_Home)
         {
-            // Handle the camera action
+
+        }
+        else if (id == R.id.nav_operator_ManageUsers)
+        {
+            operatorNavigationDrawFramgement = new Operator_Fragment_manageUsers();
         }
         else if (id == R.id.nav_operator_manageArenas)
         {
-
+            operatorNavigationDrawFramgement = new Operator_Fragment_manageArenas();
         }
         else if (id == R.id.nav_operator_manageGames)
         {
+            operatorNavigationDrawFramgement = new Operator_Fragment_manageGames();
+        }
 
+        if(operatorNavigationDrawFramgement !=null)
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace(R.id.operatorMainArea, operatorNavigationDrawFramgement);
+
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
