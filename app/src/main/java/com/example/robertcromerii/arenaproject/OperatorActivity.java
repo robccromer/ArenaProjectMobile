@@ -38,11 +38,15 @@ public class OperatorActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else
+        {
             super.onBackPressed();
         }
     }
@@ -51,7 +55,7 @@ public class OperatorActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.operator, menu);
+        getMenuInflater().inflate(R.menu.activity_operator, menu);
         return true;
     }
 
@@ -77,10 +81,9 @@ public class OperatorActivity extends AppCompatActivity
         Fragment operatorNavigationDrawFramgement = null;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_operator_Home)
         {
-
+            operatorNavigationDrawFramgement = new Operator_Fragment_Home();
         }
         else if (id == R.id.nav_operator_ManageUsers)
         {
@@ -94,14 +97,11 @@ public class OperatorActivity extends AppCompatActivity
         {
             operatorNavigationDrawFramgement = new Operator_Fragment_manageGames();
         }
-
         if(operatorNavigationDrawFramgement !=null)
         {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
             fragmentTransaction.replace(R.id.operatorMainArea, operatorNavigationDrawFramgement);
-
             fragmentTransaction.commit();
         }
 

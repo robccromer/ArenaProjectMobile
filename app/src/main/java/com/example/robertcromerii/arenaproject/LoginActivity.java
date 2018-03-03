@@ -127,7 +127,6 @@ public class LoginActivity extends AppCompatActivity
             }
             return null;
         }
-
         protected void onPostExecute(Void result)
         {
             login_Username.setText("");

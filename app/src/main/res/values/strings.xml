@@ -34,4 +34,7 @@
     <string name="mange_users_fragment_message">Mange Users Fragment</string>
     <string name="mange_arenas_fragment_message">Mange Arenas Fragment</string>
     <string name="mange_games_fragment_message">Mange Games Fragment</string>
+    <string name="operator_ManageGame_ET_GameName">Game Name</string>
+    <string name="operator_ManageGame_AddBTN">ADD</string>
+    <string name="operator_home_page_message">Operator Home Page</string>
 </resources>
