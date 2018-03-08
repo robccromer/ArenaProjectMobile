@@ -37,4 +37,6 @@
     <string name="operator_ManageGame_ET_GameName">Game Name</string>
     <string name="operator_ManageGame_AddBTN">ADD</string>
     <string name="operator_home_page_message">Operator Home Page</string>
+    <string name="manageuserBTN_accept">Accept</string>
+    <string name="manageUsersBTN_deny">Deny</string>
 </resources>

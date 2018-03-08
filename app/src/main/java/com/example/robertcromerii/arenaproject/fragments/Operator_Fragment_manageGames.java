@@ -1,10 +1,9 @@
-package com.example.robertcromerii.arenaproject;
+package com.example.robertcromerii.arenaproject.fragments;
         import android.content.Context;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentTransaction;
         import android.text.TextUtils;
         import android.util.Log;
@@ -14,6 +13,10 @@ package com.example.robertcromerii.arenaproject;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.ExpandableListView;
+
+        import com.example.robertcromerii.arenaproject.DBHandler;
+        import com.example.robertcromerii.arenaproject.R;
+        import com.example.robertcromerii.arenaproject.adapters.ManageGamesExpandableListAdapter;
 
         import java.sql.Connection;
         import java.sql.PreparedStatement;
@@ -39,7 +42,12 @@ public class Operator_Fragment_manageGames extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_operator_manage_games, null);
+
+        View rootView = inflater.inflate(R.layout.fragment_operator_manage_games, null);
+
+        manageGameExpandableListView = rootView.findViewById(R.id.ELV_manageGameList);
+
+        return rootView;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -68,7 +76,6 @@ public class Operator_Fragment_manageGames extends Fragment
                 }
             }
         });
-        manageGameExpandableListView = view.findViewById(R.id.ELV_manageGameList);
         GetGameListCall();
     }
     private void GetGameListCall() {
@@ -129,6 +136,7 @@ public class Operator_Fragment_manageGames extends Fragment
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
+            GetGameListCall();
         }
     }
     public void ReloadFragement()
@@ -170,6 +178,7 @@ public class Operator_Fragment_manageGames extends Fragment
                     manageGameListChild.add(gameID);
                     manageGameListMap.put(gameName, manageGameListChild);
                 }
+
             }
             catch(Exception e)
             {
@@ -201,6 +210,7 @@ public class Operator_Fragment_manageGames extends Fragment
             {
                 super.onPostExecute(result);
                 manageGamesExpandableListAdapter = new ManageGamesExpandableListAdapter(this.context, manageGameListHeader, manageGameListMap);
+                manageGamesExpandableListAdapter.notifyDataSetChanged();
                 manageGameExpandableListView.setAdapter(manageGamesExpandableListAdapter);
             }
             catch(Exception e)

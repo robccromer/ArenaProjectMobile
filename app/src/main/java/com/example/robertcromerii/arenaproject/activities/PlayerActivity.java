@@ -1,10 +1,12 @@
-package com.example.robertcromerii.arenaproject;
+package com.example.robertcromerii.arenaproject.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class LeagueOwnerActivity extends AppCompatActivity {
+import com.example.robertcromerii.arenaproject.R;
+
+public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

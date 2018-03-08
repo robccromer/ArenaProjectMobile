@@ -1,6 +1,5 @@
-package com.example.robertcromerii.arenaproject;
+package com.example.robertcromerii.arenaproject.adapters;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -10,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.robertcromerii.arenaproject.fragments.Operator_Fragment_manageGames;
+import com.example.robertcromerii.arenaproject.R;
 
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +103,7 @@ public class ManageGamesExpandableListAdapter extends BaseExpandableListAdapter
     }
     @Override
     public boolean isChildSelectable(int i, int i1) {
-        return false;
+        return true;
     }
     public void setNewItems(List<String> listDataHeader, HashMap<String, List<String>> listChildData) {
         this.manageGameListHeader = manageGameListHeader;

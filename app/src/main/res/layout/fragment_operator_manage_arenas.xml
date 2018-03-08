@@ -6,27 +6,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_manageUsersMessage"
+    <ListView
+        android:id="@+id/LV_manageArenasList"
+        android:layout_width="287dp"
+        android:layout_height="260dp"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/ET_createArena"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:hint="Arena Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/BTN_manageArenaSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TV_createArenaTitle" />
+
+    <Button
+        android:id="@+id/BTN_manageArenaSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="161dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ET_createArena"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/BTN_manageArenaRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="216dp"
+        android:text="Remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/TV_createArenaTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="192dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/mange_arenas_fragment_message"
+        android:layout_marginTop="6dp"
+        android:text="Create New Arena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/operator_manageArenasButton"
-        android:layout_width="163dp"
+    <TextView
+        android:id="@+id/TV_ArenaListTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="321dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginStart="79dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginStart="16dp"
+        android:text="Arena List"
+        app:layout_constraintBottom_toTopOf="@+id/LV_manageArenasList"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -16,16 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".PlayerActivity"
+            android:name=".activities.PlayerActivity"
             android:label="@string/title_activity_Player" />
         <activity
-            android:name=".LeagueOwnerActivity"
+            android:name=".activities.LeagueOwnerActivity"
             android:label="@string/title_activity_LeagueOwner" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OperatorActivity"
+            android:name=".activities.OperatorActivity"
             android:label="@string/title_activity_operator"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
