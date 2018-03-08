@@ -10,6 +10,7 @@ package com.example.robertcromerii.arenaproject.fragments;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.AdapterView;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.ExpandableListView;
@@ -32,7 +33,7 @@ package com.example.robertcromerii.arenaproject.fragments;
 
 public class Operator_Fragment_manageGames extends Fragment
 {
-    ExpandableListView manageGameExpandableListView = null;
+    ExpandableListView manageGameExpandableListView;
     ManageGamesExpandableListAdapter manageGamesExpandableListAdapter;
     List<String> manageGameListHeader;
     HashMap<String,List<String>> manageGameListMap;
@@ -43,41 +44,48 @@ public class Operator_Fragment_manageGames extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_operator_manage_games, null);
+        View view = inflater.inflate(R.layout.fragment_operator_manage_games, null);
 
-        manageGameExpandableListView = rootView.findViewById(R.id.ELV_manageGameList);
+        manageGameExpandableListView = view.findViewById(R.id.ELV_manageGameList);
+        ET_gameName = view.findViewById(R.id.ET_gameNameInput);
+        BTN_addGame = view.findViewById(R.id.BTN_operator_addGame);
+        BTN_operator_RefreshListView = view.findViewById(R.id.BTN_operator_RefreshListView);
 
-        return rootView;
+        return view;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ET_gameName = view.findViewById(R.id.ET_gameNameInput);
-        BTN_addGame = view.findViewById(R.id.BTN_operator_addGame);
-        BTN_operator_RefreshListView = view.findViewById(R.id.BTN_operator_RefreshListView);
-        BTN_operator_RefreshListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {ReloadFragement();
-            }
-        });
-        BTN_addGame.setOnClickListener(new View.OnClickListener() {
-            String ET_gameNameText = null;
-            @Override
-            public void onClick(View v)
-            {
-                ET_gameNameText = ET_gameName.getText().toString().trim();
-                if(TextUtils.isEmpty(ET_gameNameText))
-                {
-                    ET_gameName.setError("Field Cannot Be Empty");
+
+        try {
+            BTN_operator_RefreshListView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ReloadFragement();
                 }
-                else
-                {
-                    new InsertGameBackground().execute();
+            });
+            BTN_addGame.setOnClickListener(new View.OnClickListener() {
+                String ET_gameNameText = null;
+
+                @Override
+                public void onClick(View v) {
+                    ET_gameNameText = ET_gameName.getText().toString().trim();
+                    if (TextUtils.isEmpty(ET_gameNameText)) {
+                        ET_gameName.setError("Field Cannot Be Empty");
+                    } else {
+                        new InsertGameBackground().execute();
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
         GetGameListCall();
     }
+
     private void GetGameListCall() {
         GetGameListBackground getGameListBackground = new GetGameListBackground(getContext());
         getGameListBackground.execute();
@@ -100,7 +108,6 @@ public class Operator_Fragment_manageGames extends Fragment
         @Override
         protected Void doInBackground(Void... voids)
         {
-            manageGamesExpandableListAdapter = null;
             try
             {
                 connection = DBHandler.getConnection();
@@ -139,12 +146,10 @@ public class Operator_Fragment_manageGames extends Fragment
             GetGameListCall();
         }
     }
-    public void ReloadFragement()
-    {
+    public void ReloadFragement() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.detach(this).attach(this).commit();
     }
-
     private class GetGameListBackground extends AsyncTask<Void,Void,Void> {
         private Context context;
         private PreparedStatement preparedStatement = null;
@@ -210,7 +215,6 @@ public class Operator_Fragment_manageGames extends Fragment
             {
                 super.onPostExecute(result);
                 manageGamesExpandableListAdapter = new ManageGamesExpandableListAdapter(this.context, manageGameListHeader, manageGameListMap);
-                manageGamesExpandableListAdapter.notifyDataSetChanged();
                 manageGameExpandableListView.setAdapter(manageGamesExpandableListAdapter);
             }
             catch(Exception e)

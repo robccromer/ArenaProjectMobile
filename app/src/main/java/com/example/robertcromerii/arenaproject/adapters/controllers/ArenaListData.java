@@ -8,7 +8,7 @@ public class ArenaListData
 {
     private String arenaName;
     private int arenaID;
-    public ArenaListData(String arenaName, int arenaID) {
+    public ArenaListData(int arenaID, String arenaName) {
         this.arenaName = arenaName;
         this.arenaID = arenaID;
     }

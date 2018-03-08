@@ -56,7 +56,7 @@ public class Operator_Fragment_manageUsers extends Fragment
                 userListDataList.add(new UserListData(i, "Test" + Integer.toString(i)));
             }
 
-            manageUsersListAdapter = new ManageUsersListAdapter(getContext(), userListDataList);
+            manageUsersListAdapter = new ManageUsersListAdapter(getActivity(), userListDataList);
             LV_manageUsers.setAdapter(manageUsersListAdapter);
 
             LV_manageUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {

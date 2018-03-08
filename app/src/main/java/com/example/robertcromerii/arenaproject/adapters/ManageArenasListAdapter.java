@@ -45,10 +45,12 @@ public class ManageArenasListAdapter extends BaseAdapter
             LayoutInflater inflater = (LayoutInflater)this.mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.listheader_operator_manage_arenas, null);
         }
-        //View v = View.inflate(mContext, R.layout.listheader_operator_manage_users,null);
-        TextView TV_pendingUserName= (TextView)view.findViewById(R.id.TV_pendingUserName);
-        TV_pendingUserName.setText(arenaListDataList.get(i).getArenaName());
-        view.setTag(arenaListDataList.get(i).getArenaID());
+        TextView TV_ArenaName= (TextView)view.findViewById(R.id.TV_ArenaName);
+        TextView TV_ArenaID= (TextView)view.findViewById(R.id.TV_ArenaID);
+
+        TV_ArenaName.setText(arenaListDataList.get(i).getArenaName());
+        TV_ArenaID.setText(Integer.toString(arenaListDataList.get(i).getArenaID()));
+
         return view;
     }
 }
