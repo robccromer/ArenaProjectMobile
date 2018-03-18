@@ -26,21 +26,21 @@ public class OperatorActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar operatorToolbar = (Toolbar) findViewById(R.id.operator_toolbar);
+        setSupportActionBar(operatorToolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.operator_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, operatorToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.operator_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.operator_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
@@ -53,7 +53,7 @@ public class OperatorActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_operator, menu);
+        getMenuInflater().inflate(R.menu.activity_operator_action_setttings, menu);
         return true;
     }
     @Override
@@ -64,7 +64,7 @@ public class OperatorActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.operator_action_settings) {
             return true;
         }
 
@@ -99,16 +99,9 @@ public class OperatorActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.operatorMainArea, operatorNavigationDrawFramgement);
             fragmentTransaction.commit();
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.operator_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void ReloadManageGameFragment() {
-        Fragment fragment = null;
-        fragment = getSupportFragmentManager().findFragmentByTag("fragment_operator_home.xml");
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.detach(fragment);
-        fragmentTransaction.attach(fragment);
-        fragmentTransaction.commit();
-    }
+
 }

@@ -74,6 +74,14 @@ public class LoginActivity extends AppCompatActivity
                 Intent operatorIntent = new Intent(LoginActivity.this, OperatorActivity.class);
                 LoginActivity.this.startActivity(operatorIntent);
                 break;
+            case "1":
+                Intent leagueOwnerIntent = new Intent(LoginActivity.this, LeagueOwnerActivity.class);
+                LoginActivity.this.startActivity(leagueOwnerIntent);
+                break;
+            case "3":
+                Intent playerIntent = new Intent(LoginActivity.this, PlayerActivity.class);
+                LoginActivity.this.startActivity(playerIntent);
+                break;
             default:
                 Intent loginIntent = new Intent(LoginActivity.this, LoginActivity.class);
                 LoginActivity.this.startActivity(loginIntent);

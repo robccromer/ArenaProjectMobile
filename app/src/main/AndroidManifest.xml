@@ -20,10 +20,8 @@
             android:label="@string/title_activity_register" />
         <activity
             android:name=".activities.PlayerActivity"
-            android:label="@string/title_activity_Player" />
-        <activity
-            android:name=".activities.LeagueOwnerActivity"
-            android:label="@string/title_activity_LeagueOwner" />
+            android:label="@string/title_activity_Player"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login">
@@ -36,6 +34,10 @@
         <activity
             android:name=".activities.OperatorActivity"
             android:label="@string/title_activity_operator"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.LeagueOwnerActivity"
+            android:label="@string/title_activity_league_owner"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
