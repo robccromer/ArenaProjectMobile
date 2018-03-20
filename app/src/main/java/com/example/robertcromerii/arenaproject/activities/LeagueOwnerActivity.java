@@ -14,6 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.robertcromerii.arenaproject.R;
+import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_Home;
+import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageLeagues;
+import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageMatches;
+import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageTournaments;
+import com.example.robertcromerii.arenaproject.fragments.Operator_Fragment_Home;
 
 public class LeagueOwnerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,12 +79,21 @@ public class LeagueOwnerActivity extends AppCompatActivity
         Fragment LeagueOwnerNavigationDrawFramgement = null;
         int id = item.getItemId();
 
-        if (id == R.id.leagueOwner_nav_ManageLeagues) {
-            // Handle the camera action
-        } else if (id == R.id.leagueOwner_nav_ManageTournament) {
-
-        } else if (id == R.id.leagueOwner_nav_ManageMatches) {
-
+        if(id == R.id.leagueOwner_nav_Home)
+        {
+            LeagueOwnerNavigationDrawFramgement = new LeagueOwner_Fragment_Home();
+        }
+        else if (id == R.id.leagueOwner_nav_ManageLeagues)
+        {
+            LeagueOwnerNavigationDrawFramgement = new LeagueOwner_Fragment_ManageLeagues();
+        }
+        else if (id == R.id.leagueOwner_nav_ManageTournament)
+        {
+            LeagueOwnerNavigationDrawFramgement = new LeagueOwner_Fragment_ManageTournaments();
+        }
+        else if (id == R.id.leagueOwner_nav_ManageMatches)
+        {
+            LeagueOwnerNavigationDrawFramgement = new LeagueOwner_Fragment_ManageMatches();
         }
         if(LeagueOwnerNavigationDrawFramgement !=null)
         {
@@ -88,7 +102,7 @@ public class LeagueOwnerActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.leagueOwnerMainArea, LeagueOwnerNavigationDrawFramgement);
             fragmentTransaction.commit();
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.operator_drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.leagueOwner_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
