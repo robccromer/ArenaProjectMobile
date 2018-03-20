@@ -28,15 +28,6 @@ public class Operator_Fragment_Home extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        
-       /* view.findViewById(R.id.operator_manageUsersButton).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) 
-            {
-                Toast.makeText(getActivity(), "You Are inside Manage Users Operator Fragement", Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
 
