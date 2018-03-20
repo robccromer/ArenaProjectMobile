@@ -53,7 +53,7 @@ public class OperatorActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_operator_action_setttings, menu);
+        getMenuInflater().inflate(R.menu.activity_operator_actions, menu);
         return true;
     }
     @Override
