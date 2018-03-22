@@ -9,8 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.robertcromerii.arenaproject.R;
-import com.example.robertcromerii.arenaproject.adapters.controllers.ArenaListData;
-import com.example.robertcromerii.arenaproject.adapters.controllers.UserListData;
+import com.example.robertcromerii.arenaproject.models.ArenaListData;
 
 import java.util.List;
 

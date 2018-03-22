@@ -183,7 +183,6 @@ public class Operator_Fragment_manageGames extends Fragment
                     manageGameListChild.add(gameID);
                     manageGameListMap.put(gameName, manageGameListChild);
                 }
-
             }
             catch(Exception e)
             {

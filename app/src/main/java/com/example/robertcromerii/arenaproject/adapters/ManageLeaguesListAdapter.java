@@ -9,7 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.robertcromerii.arenaproject.R;
-import com.example.robertcromerii.arenaproject.models.UserListData;
+import com.example.robertcromerii.arenaproject.models.ArenaListData;
+import com.example.robertcromerii.arenaproject.models.LeagueListData;
 
 import java.util.List;
 
@@ -17,22 +18,21 @@ import java.util.List;
  * Created by Robert Cromer II on 3/6/2018.
  */
 
-public class ManageUsersListAdapter extends BaseAdapter
+public class ManageLeaguesListAdapter extends BaseAdapter
 {
     private Context mContext;
-    private List<UserListData> userListDataList;
-
-    public ManageUsersListAdapter(Context mContext, List<UserListData> userListDataList) {
+    private List<LeagueListData> leagueListDataList;
+    public ManageLeaguesListAdapter(Context mContext, List<LeagueListData> arenaListDataList) {
         this.mContext = mContext;
-        this.userListDataList = userListDataList;
+        this.leagueListDataList = arenaListDataList;
     }
     @Override
     public int getCount() {
-        return userListDataList.size();
+        return leagueListDataList.size();
     }
     @Override
     public Object getItem(int i) {
-        return userListDataList.get(i);
+        return leagueListDataList.get(i);
     }
     @Override
     public long getItemId(int i) {
@@ -43,12 +43,14 @@ public class ManageUsersListAdapter extends BaseAdapter
         if(view == null)
         {
             LayoutInflater inflater = (LayoutInflater)this.mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listheader_operator_manage_users, null);
+            view = inflater.inflate(R.layout.listheader_leagueowner_manage_leagues, null);
         }
-        //View v = View.inflate(mContext, R.layout.listheader_operator_manage_users,null);
-        TextView TV_pendingUserName= (TextView)view.findViewById(R.id.TV_pendingUserName);
-        TV_pendingUserName.setText(userListDataList.get(i).getPendingUserName());
-        view.setTag(userListDataList.get(i).getPendingUserID());
+        TextView TV_leagueName= (TextView)view.findViewById(R.id.TV_leagueName);
+        TextView TV_leagueID= (TextView)view.findViewById(R.id.TV_leagueID);
+
+        TV_leagueName.setText(leagueListDataList.get(i).getLeagueName());
+        TV_leagueID.setText(leagueListDataList.get(i).getLeagueID());
+
         return view;
     }
 }

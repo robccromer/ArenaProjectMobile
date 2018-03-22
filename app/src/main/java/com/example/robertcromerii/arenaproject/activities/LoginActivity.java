@@ -25,6 +25,7 @@ import java.sql.SQLException;
  */
 public class LoginActivity extends AppCompatActivity
 {
+    public static String currentUserID = null;
     private static final String TAG = "LoginActivity";
     EditText login_UserPassword, login_Username;
     @Override
@@ -100,7 +101,7 @@ public class LoginActivity extends AppCompatActivity
             try
             {
                 connection = DBHandler.getConnection();
-                String loginUserRequest = "SELECT userRoleID FROM arenadatabase.users WHERE userName = ? and userPassword = ?";
+                String loginUserRequest = "SELECT * FROM arenadatabase.users WHERE userName = ? and userPassword = ?";
 
                 preparedStatement = connection.prepareStatement(loginUserRequest);
                 preparedStatement.setString(1, username);
@@ -109,7 +110,9 @@ public class LoginActivity extends AppCompatActivity
                 while (resultSet.next())
                 {
                     String userRoleID = resultSet.getString("userRoleID");
+                    String userID = resultSet.getString("userID");
                     loginRoleActivty(userRoleID);
+                    currentUserID = userID;
                 }
             }
             catch (SQLException e)

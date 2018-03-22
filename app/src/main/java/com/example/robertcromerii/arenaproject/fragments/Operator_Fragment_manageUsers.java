@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.robertcromerii.arenaproject.DBHandler;
 import com.example.robertcromerii.arenaproject.R;
 import com.example.robertcromerii.arenaproject.adapters.ManageUsersListAdapter;
-import com.example.robertcromerii.arenaproject.adapters.controllers.UserListData;
+import com.example.robertcromerii.arenaproject.models.UserListData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.robertcromerii.arenaproject.DBHandler;
 import com.example.robertcromerii.arenaproject.R;
 import com.example.robertcromerii.arenaproject.adapters.ManageArenasListAdapter;
-import com.example.robertcromerii.arenaproject.adapters.controllers.ArenaListData;
+import com.example.robertcromerii.arenaproject.models.ArenaListData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -252,7 +252,6 @@ public class Operator_Fragment_manageArenas extends Fragment
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next())
                 {
-                    List<String> manageGameListChild = new ArrayList<>();
                     int arenaID = resultSet.getInt("ArenaID");
                     String arenaName = resultSet.getString("ArenaName");
                     arenaListDataList.add(new ArenaListData(arenaID, arenaName));
