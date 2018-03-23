@@ -3,44 +3,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:isScrollContainer="false"
     tools:context="com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageLeagues">
 
     <!-- TODO: Update blank fragment layout -->
 
     <EditText
-        android:id="@+id/ET_leagueName"
-        android:layout_width="189dp"
+        android:id="@+id/ET_manageLeague_LeagueName"
+        android:layout_width="288dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="League Name"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/BTN_addLeague"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/BTN_addLeague"
-        android:layout_width="wrap_content"
+        android:id="@+id/BTN_removeLeague"
+        android:layout_width="141dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="16dp"
-        android:text="Add"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Remove League"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ET_leagueName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/LV_manageLeagues" />
+
+    <Button
+        android:id="@+id/BTN_addLeague"
+        android:layout_width="141dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Add League"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Spinner_manageLeague_Arena"
+        app:layout_constraintTop_toBottomOf="@+id/ET_manageLeague_LeagueDesc" />
+
+    <Spinner
+        android:id="@+id/Spinner_manageLeague_Arena"
+        android:layout_width="139dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toStartOf="@+id/BTN_addLeague"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ET_manageLeague_LeagueDesc" />
+
+    <EditText
+        android:id="@+id/ET_manageLeague_LeagueDesc"
+        android:layout_width="288dp"
+        android:layout_height="99dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="League Description"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ET_manageLeague_LeagueName" />
 
     <ListView
         android:id="@+id/LV_manageLeagues"
-        android:layout_width="304dp"
-        android:layout_height="335dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="288dp"
+        android:layout_height="156dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/BTN_removeLeague"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BTN_addLeague" />
 </android.support.constraint.ConstraintLayout>
