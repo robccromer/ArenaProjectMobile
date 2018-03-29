@@ -8,9 +8,9 @@ public class LeagueListData
 {
     private String leagueName;
     private String leagueID;
-    public LeagueListData(String arenaID, String arenaName) {
-        this.leagueName = arenaName;
-        this.leagueID = arenaID;
+    public LeagueListData(String leagueID, String leagueName) {
+        this.leagueName = leagueName;
+        this.leagueID = leagueID;
     }
     public String getLeagueName() {
         return leagueName;
@@ -23,5 +23,11 @@ public class LeagueListData
     }
     public void setLeagueID(String leagueID) {
         this.leagueID = leagueID;
+    }
+
+
+    @Override
+    public String toString() {
+        return leagueName;
     }
 }
