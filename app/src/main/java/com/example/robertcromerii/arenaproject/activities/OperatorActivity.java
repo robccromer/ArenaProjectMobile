@@ -1,5 +1,6 @@
 package com.example.robertcromerii.arenaproject.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -65,7 +66,8 @@ public class OperatorActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.operator_action_settings) {
-            return true;
+            Intent logoutIntent = new Intent(OperatorActivity.this, LoginActivity.class);
+            OperatorActivity.this.startActivity(logoutIntent);
         }
 
         return super.onOptionsItemSelected(item);

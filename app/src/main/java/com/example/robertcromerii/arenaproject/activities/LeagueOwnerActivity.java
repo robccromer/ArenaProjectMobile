@@ -1,5 +1,6 @@
 package com.example.robertcromerii.arenaproject.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -66,7 +67,8 @@ public class LeagueOwnerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.leageOwner_action_settings) {
-            return true;
+            Intent logoutIntent = new Intent(LeagueOwnerActivity.this, LoginActivity.class);
+            LeagueOwnerActivity.this.startActivity(logoutIntent);
         }
 
         return super.onOptionsItemSelected(item);
