@@ -3,6 +3,7 @@ package com.example.robertcromerii.arenaproject.fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -15,13 +16,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.robertcromerii.arenaproject.BuildConfig;
 import com.example.robertcromerii.arenaproject.DBHandler;
 import com.example.robertcromerii.arenaproject.R;
 import com.example.robertcromerii.arenaproject.activities.LoginActivity;
+import com.example.robertcromerii.arenaproject.adapters.ManageTournamentListAdapter;
 import com.example.robertcromerii.arenaproject.models.LeagueListData;
+import com.example.robertcromerii.arenaproject.models.TournamentData;
 import com.example.robertcromerii.arenaproject.models.TournamentStyleData;
 
 import java.sql.Connection;
@@ -48,13 +53,15 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
     Button Button_addTournament;
     Spinner Spinner_tournamentStyle;
     Spinner Spinner_tournamentLeague;
+    ListView ListView_tournaments;
 
     ArrayList<TournamentStyleData> tournamentStyleList;
     ArrayList<LeagueListData> tournamentLeagueList;
-
+    ArrayList<TournamentData> tournamentDataArrayList;
     ArrayAdapter<LeagueListData> LeagueListadapter;
     ArrayAdapter<TournamentStyleData> tournamentStyleAdapter;
 
+    private ManageTournamentListAdapter manageTournamentListAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,7 +73,7 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
         Button_addTournament = (Button) view.findViewById(R.id.Button_addTournament);
         Spinner_tournamentLeague = (Spinner) view.findViewById(R.id.Spinner_tournamentLeague);
         Spinner_tournamentStyle = (Spinner) view.findViewById(R.id.Spinner_tournamentStyle);
-
+        ListView_tournaments = (ListView) view.findViewById(R.id.ListView_tournaments);
         try{
             GetLeagueListCall();
             GetTournamentStyleCall();
@@ -118,6 +125,8 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
                 Object object = adapterView.getItemAtPosition(i);
                 LeagueListData leagueListData = (LeagueListData) object;
                 selectedLeagueID = leagueListData.getLeagueID();
+
+                GetRelevantTournamentsCall();
             }
 
             @Override
@@ -148,7 +157,10 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
         GetTournamentStyleBackground getTournamentStyleBackground = new GetTournamentStyleBackground(getContext());
         getTournamentStyleBackground.execute();
     }
-
+    private void GetRelevantTournamentsCall() {
+        GetRelevantTournamentsBackground getRelevantTournamentsBackground = new GetRelevantTournamentsBackground();
+        getRelevantTournamentsBackground.execute();
+    }
     private class GetTournamentStyleBackground extends AsyncTask<Void,Void,Void> {
         private Context context;
         private PreparedStatement preparedStatement = null;
@@ -159,8 +171,7 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
             this.context = context;
         }
         @Override
-        protected Void doInBackground(Void... voids)
-        {
+        protected Void doInBackground(Void... voids) {
             int i = 0;
             tournamentStyleList = new ArrayList<>();
             tournamentStyleAdapter = new ArrayAdapter<>(getContext(), R.layout.simple_spinner_dropdown_item, tournamentStyleList);
@@ -204,8 +215,7 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
             }
             return null;
         }
-        protected void onPostExecute(Void result)
-        {
+        protected void onPostExecute(Void result) {
             try
             {
                 super.onPostExecute(result);
@@ -301,8 +311,7 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
         private PreparedStatement preparedStatement = null;
         private Connection connection = null;
         @Override
-        protected Void doInBackground(Void... params)
-        {
+        protected Void doInBackground(Void... params) {
             try
             {
                 connection = DBHandler.getConnection();
@@ -341,13 +350,75 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
             }
             return null;
         }
-        protected void onPostExecute(Void result)
-        {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             GetLeagueListCall();
         }
     }
 
+    private class GetRelevantTournamentsBackground extends AsyncTask<Void,Void,Void> {
 
+        private PreparedStatement preparedStatement = null;
+        private Connection connection = null;
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            int i = 0;
+            tournamentDataArrayList = new ArrayList<>();
+
+            try
+            {
+                connection = DBHandler.getConnection();
+                String getGameQuery = "SELECT * FROM tournament WHERE League_LeagueID =" + selectedLeagueID;
+
+                preparedStatement = connection.prepareStatement(getGameQuery);
+                preparedStatement.executeQuery();
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next())
+                {
+                    String tournamentName = resultSet.getString("TournamentName");
+                    String tournamentID = resultSet.getString("TournamentID");
+                    String tournamentDescription = resultSet.getString("TournamentDescription");
+                    String tournamentStyle = resultSet.getString("TournamentStyleCode_TournamentStyleCodeID");
+                    tournamentDataArrayList.add(new TournamentData(tournamentName, tournamentID, tournamentDescription, tournamentStyle));
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (preparedStatement != null)
+                    {
+                        preparedStatement.close();
+                    }
+                    if (connection != null)
+                    {
+                        connection.close();
+                    }
+                }
+                catch(Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+            return null;
+        }
+        protected void onPostExecute(Void result) {
+            try
+            {
+                super.onPostExecute(result);
+                manageTournamentListAdapter = new ManageTournamentListAdapter(getActivity(), tournamentDataArrayList);
+                ListView_tournaments.setAdapter(manageTournamentListAdapter);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 }

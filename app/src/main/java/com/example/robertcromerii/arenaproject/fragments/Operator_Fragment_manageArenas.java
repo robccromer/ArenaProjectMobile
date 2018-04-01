@@ -113,7 +113,6 @@ public class Operator_Fragment_manageArenas extends Fragment
         super.onViewCreated(view, savedInstanceState);
         GetArenaListCall();
     }
-
     private void GetArenaListCall() {
         GetArenaListBackground getArenaListBackground = new GetArenaListBackground(getContext());
         getArenaListBackground.execute();
