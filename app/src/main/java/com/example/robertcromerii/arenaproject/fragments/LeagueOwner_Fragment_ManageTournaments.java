@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.robertcromerii.arenaproject.BuildConfig;
 import com.example.robertcromerii.arenaproject.DBHandler;
@@ -36,6 +38,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.example.robertcromerii.arenaproject.Utilities.setListViewHeightBasedOnChildren;
 
 /**
  * Created by Robert Cromer II on 3/19/2018.
@@ -47,10 +50,14 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
     private String selectedTournamentStyleID;
     private String selectedLeagueID;
 
+    private String selectedTournamentID = null;
+    private String previousSelectedTournamentID = null;
+
     EditText ET_tournamentName;
     EditText ET_tournamentDesc;
     EditText ET_tournamentDate;
     Button Button_addTournament;
+    Button Button_removeTournament;
     Spinner Spinner_tournamentStyle;
     Spinner Spinner_tournamentLeague;
     ListView ListView_tournaments;
@@ -71,6 +78,8 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
         ET_tournamentDesc = (EditText) view.findViewById(R.id.ET_tournamentDesc);
         ET_tournamentDate = (EditText) view.findViewById(R.id.ET_tournamentDate);
         Button_addTournament = (Button) view.findViewById(R.id.Button_addTournament);
+        Button_removeTournament = (Button) view.findViewById(R.id.Button_removeTournament);
+
         Spinner_tournamentLeague = (Spinner) view.findViewById(R.id.Spinner_tournamentLeague);
         Spinner_tournamentStyle = (Spinner) view.findViewById(R.id.Spinner_tournamentStyle);
         ListView_tournaments = (ListView) view.findViewById(R.id.ListView_tournaments);
@@ -119,6 +128,13 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
                 }
             }
         });
+        Button_removeTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                RemoveTournamentCall();
+            }
+        });
         Spinner_tournamentLeague.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -147,6 +163,20 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
 
             }
         });
+        ListView_tournaments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView TV_TournamentID = (TextView)view.findViewById(R.id.TV_TournamentID);
+                TextView TV_TournamentName = (TextView)view.findViewById(R.id.TV_TournamentName);
+                TextView TV_TournamentDesc = (TextView)view.findViewById(R.id.TV_TournamentDesc);
+                TextView TV_TournamentStyle = (TextView)view.findViewById(R.id.TV_TournamentStyle);
+                previousSelectedTournamentID = selectedTournamentID;
+                selectedTournamentID = TV_TournamentID.getText().toString();
+
+                Toast.makeText(getContext(), "Selected Tournament ID -" + selectedTournamentID + "|| Previous Tournament ID" + previousSelectedTournamentID, Toast.LENGTH_SHORT).show();
+                //logData(arenaName);
+            }
+        });
     }
 
     private void GetLeagueListCall() {
@@ -161,6 +191,15 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
         GetRelevantTournamentsBackground getRelevantTournamentsBackground = new GetRelevantTournamentsBackground();
         getRelevantTournamentsBackground.execute();
     }
+    private void InsertTournamentCall() {
+        InsertTournamentBackground insertTournamentBackground = new InsertTournamentBackground();
+        insertTournamentBackground.execute();
+    }
+    private void RemoveTournamentCall() {
+        RemoveTournamentBackground removeTournamentBackground = new RemoveTournamentBackground();
+        removeTournamentBackground.execute();
+    }
+
     private class GetTournamentStyleBackground extends AsyncTask<Void,Void,Void> {
         private Context context;
         private PreparedStatement preparedStatement = null;
@@ -298,64 +337,6 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
             }
         }
     }
-
-    private void InsertTournamentCall() {
-        InsertTournamentBackground insertTournamentBackground = new InsertTournamentBackground();
-        insertTournamentBackground.execute();
-    }
-    private class InsertTournamentBackground extends AsyncTask<Void,Void,Void> {
-        private String ET_tournamentNameValue = ET_tournamentName.getText().toString().trim();
-        private String ET_tournamentDescValue = ET_tournamentDesc.getText().toString().trim();
-        private String ET_tournamentDateValue = ET_tournamentDate.getText().toString().trim();
-
-        private PreparedStatement preparedStatement = null;
-        private Connection connection = null;
-        @Override
-        protected Void doInBackground(Void... params) {
-            try
-            {
-                connection = DBHandler.getConnection();
-                String insertNewLeague = "INSERT INTO tournament (TournamentName, TournamentDescription, League_LeagueID, TournamentStyleCode_TournamentStyleCodeID, tournamentDate) VALUES (?,?,?,?,?)";
-                preparedStatement = connection.prepareStatement(insertNewLeague);
-                preparedStatement.setString(1, ET_tournamentNameValue);
-                preparedStatement.setString(2, ET_tournamentDescValue);
-                preparedStatement.setString(3, selectedLeagueID);
-                preparedStatement.setString(4, selectedTournamentStyleID);
-                preparedStatement.setString(5, ET_tournamentDateValue);
-
-                Log.d("Statement", preparedStatement.toString());
-                preparedStatement.execute();
-            }
-            catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-            finally
-            {
-                try
-                {
-                    if (preparedStatement != null)
-                    {
-                        preparedStatement.close();
-                    }
-                    if (connection != null)
-                    {
-                        connection.close();
-                    }
-                }
-                catch(Exception exception)
-                {
-                    exception.printStackTrace();
-                }
-            }
-            return null;
-        }
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            GetLeagueListCall();
-        }
-    }
-
     private class GetRelevantTournamentsBackground extends AsyncTask<Void,Void,Void> {
 
         private PreparedStatement preparedStatement = null;
@@ -414,6 +395,7 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
                 super.onPostExecute(result);
                 manageTournamentListAdapter = new ManageTournamentListAdapter(getActivity(), tournamentDataArrayList);
                 ListView_tournaments.setAdapter(manageTournamentListAdapter);
+                setListViewHeightBasedOnChildren(ListView_tournaments);
             }
             catch(Exception e)
             {
@@ -421,4 +403,108 @@ public class LeagueOwner_Fragment_ManageTournaments extends Fragment
             }
         }
     }
+
+    private class InsertTournamentBackground extends AsyncTask<Void,Void,Void> {
+        private String ET_tournamentNameValue = ET_tournamentName.getText().toString().trim();
+        private String ET_tournamentDescValue = ET_tournamentDesc.getText().toString().trim();
+        private String ET_tournamentDateValue = ET_tournamentDate.getText().toString().trim();
+
+        private PreparedStatement preparedStatement = null;
+        private Connection connection = null;
+        @Override
+        protected Void doInBackground(Void... params) {
+            try
+            {
+                connection = DBHandler.getConnection();
+                String insertNewLeague = "INSERT INTO tournament (TournamentName, TournamentDescription, League_LeagueID, TournamentStyleCode_TournamentStyleCodeID, tournamentDate) VALUES (?,?,?,?,?)";
+                preparedStatement = connection.prepareStatement(insertNewLeague);
+                preparedStatement.setString(1, ET_tournamentNameValue);
+                preparedStatement.setString(2, ET_tournamentDescValue);
+                preparedStatement.setString(3, selectedLeagueID);
+                preparedStatement.setString(4, selectedTournamentStyleID);
+                preparedStatement.setString(5, ET_tournamentDateValue);
+
+                Log.d("Statement", preparedStatement.toString());
+                preparedStatement.execute();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (preparedStatement != null)
+                    {
+                        preparedStatement.close();
+                    }
+                    if (connection != null)
+                    {
+                        connection.close();
+                    }
+                }
+                catch(Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+            return null;
+        }
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            GetLeagueListCall();
+        }
+    }
+
+    private class RemoveTournamentBackground extends AsyncTask<Void,Void,Void> {
+        private String ET_tournamentNameValue = ET_tournamentName.getText().toString().trim();
+
+        private PreparedStatement preparedStatement = null;
+        private Connection connection = null;
+        @Override
+        protected Void doInBackground(Void... params) {
+            try
+            {
+                connection = DBHandler.getConnection();
+                String insertNewLeague = "DELETE FROM tournament WHERE TournamentID = ?";
+                preparedStatement = connection.prepareStatement(insertNewLeague);
+                preparedStatement.setString(1, selectedTournamentID);
+
+                preparedStatement.execute();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (preparedStatement != null)
+                    {
+                        preparedStatement.close();
+                    }
+                    if (connection != null)
+                    {
+                        connection.close();
+                    }
+                }
+                catch(Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+            return null;
+        }
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            previousSelectedTournamentID = null;
+            selectedTournamentID = null;
+            GetRelevantTournamentsCall();
+        }
+    }
+
+
+
 }

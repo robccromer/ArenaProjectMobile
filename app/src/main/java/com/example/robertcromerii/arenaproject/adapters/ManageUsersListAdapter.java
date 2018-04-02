@@ -45,9 +45,12 @@ public class ManageUsersListAdapter extends BaseAdapter
             LayoutInflater inflater = (LayoutInflater)this.mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.listheader_operator_manage_users, null);
         }
-        //View v = View.inflate(mContext, R.layout.listheader_operator_manage_users,null);
-        TextView TV_pendingUserName= (TextView)view.findViewById(R.id.TV_pendingUserName);
-        TV_pendingUserName.setText(userListDataList.get(i).getPendingUserName());
+        TextView TV_UserName= (TextView)view.findViewById(R.id.TV_UserName);
+        TextView TV_UserID= (TextView)view.findViewById(R.id.TV_UserID);
+
+        TV_UserName.setText(userListDataList.get(i).getPendingUserName());
+        TV_UserID.setText(userListDataList.get(i).getPendingUserID());
+
         view.setTag(userListDataList.get(i).getPendingUserID());
         return view;
     }

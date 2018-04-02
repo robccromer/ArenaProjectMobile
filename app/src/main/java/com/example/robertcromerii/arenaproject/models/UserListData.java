@@ -7,9 +7,9 @@ package com.example.robertcromerii.arenaproject.models;
 public class UserListData
 {
     private String pendingUserName;
-    private int pendingUserID;
+    private String pendingUserID;
 
-    public UserListData(int pendingUserID, String pendingUserName) {
+    public UserListData(String pendingUserID, String pendingUserName) {
         this.pendingUserName = pendingUserName;
         this.pendingUserID = pendingUserID;
     }
@@ -22,11 +22,11 @@ public class UserListData
         this.pendingUserName = pendingUserName;
     }
 
-    public int getPendingUserID() {
+    public String getPendingUserID() {
         return pendingUserID;
     }
 
-    public void setPendingUserID(int pendingUserID) {
+    public void setPendingUserID(String pendingUserID) {
         this.pendingUserID = pendingUserID;
     }
 }

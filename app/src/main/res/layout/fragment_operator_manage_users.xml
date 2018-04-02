@@ -2,41 +2,100 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/LV_manageUsers"
-        android:layout_width="304dp"
-        android:layout_height="371dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="320dp"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/BTN_manageUsersDeny"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="13dp"
-        android:text="@string/manageuserBTN_accept"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LV_manageUsers"
-        app:layout_constraintVertical_bias="0.0" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/BTN_manageUsersAccept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="13dp"
-        android:text="@string/manageUsersBTN_deny"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LV_manageUsers"
-        app:layout_constraintVertical_bias="0.0" />
+            <ListView
+                android:id="@+id/LV_manageUsers"
+                android:layout_width="290dp"
+                android:layout_height="186dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TV_userTitle" />
+
+            <Button
+                android:id="@+id/BTN_manageUsersBan"
+                android:layout_width="88dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Ban"
+                app:layout_constraintBottom_toTopOf="@+id/LV_pendingUsers"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LV_manageUsers" />
+
+            <TextView
+                android:id="@+id/TV_userTitle"
+                android:layout_width="35dp"
+                android:layout_height="19dp"
+                android:layout_marginEnd="269dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Users"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TV_pendingUsersTitle"
+                android:layout_width="88dp"
+                android:layout_height="19dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="112dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="43dp"
+                android:text="Pending Users"
+                app:layout_constraintBottom_toTopOf="@+id/LV_pendingUsers"
+                app:layout_constraintEnd_toStartOf="@+id/BTN_manageUsersBan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LV_manageUsers" />
+
+            <ListView
+                android:id="@+id/LV_pendingUsers"
+                android:layout_width="290dp"
+                android:layout_height="147dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/BTN_manageUsersAccept"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/BTN_manageUsersBan" />
+
+            <Button
+                android:id="@+id/BTN_manageUsersAccept"
+                android:layout_width="88dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Accept"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/BTN_manageUsersDeny" />
+
+            <Button
+                android:id="@+id/BTN_manageUsersDeny"
+                android:layout_width="88dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Deny"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
