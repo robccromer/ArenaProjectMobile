@@ -19,7 +19,6 @@ import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_Ho
 import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageLeagues;
 import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageMatches;
 import com.example.robertcromerii.arenaproject.fragments.LeagueOwner_Fragment_ManageTournaments;
-import com.example.robertcromerii.arenaproject.fragments.Operator_Fragment_Home;
 
 public class LeagueOwnerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +53,7 @@ public class LeagueOwnerActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.league_owner_actions, menu);
+        getMenuInflater().inflate(R.menu.activity_league_owner_actions, menu);
         return true;
     }
 
