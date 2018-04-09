@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... params)
         {
-            Log.d(TAG, "Username: " + username + "||" + "User Password:" + userPassword);
+            //Log.d(TAG, "Username: " + username + "||" + "User Password:" + userPassword);
             try
             {
                 connection = DBHandler.getConnection();
