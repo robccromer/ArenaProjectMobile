@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,14 +22,12 @@ import java.sql.SQLException;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity
-{
+public class LoginActivity extends AppCompatActivity {
     public static String currentUserID = null;
     private static final String TAG = "LoginActivity";
     EditText login_UserPassword, login_Username;
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -63,7 +60,7 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                new Background().execute();
+                new LoginBackground().execute();
             }
         });
     }
@@ -92,8 +89,7 @@ public class LoginActivity extends AppCompatActivity
                 LoginActivity.this.startActivity(loginIntent);
         }
     }
-    private class Background extends AsyncTask<Void,Void,Void>
-    {
+    private class LoginBackground extends AsyncTask<Void,Void,Void>{
         private String username = login_Username.getText().toString();
         private String userPassword = login_UserPassword.getText().toString();
         private PreparedStatement preparedStatement = null;
@@ -102,51 +98,39 @@ public class LoginActivity extends AppCompatActivity
         protected Void doInBackground(Void... params)
         {
             //Log.d(TAG, "Username: " + username + "||" + "User Password:" + userPassword);
-            try
-            {
+            try {
                 connection = DBHandler.getConnection();
                 String loginUserRequest = "SELECT * FROM arenadatabase.users WHERE userName = ? and userPassword = ?";
-
                 preparedStatement = connection.prepareStatement(loginUserRequest);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, userPassword);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next())
-                {
+                while (resultSet.next()) {
                     String userRoleID = resultSet.getString("userRoleID");
                     String userID = resultSet.getString("userID");
                     loginRoleActivty(userRoleID);
                     currentUserID = userID;
                 }
             }
-            catch (SQLException e)
-            {
+            catch (SQLException e) {
                 e.printStackTrace();
             }
-            finally
-            {
-                try
-                {
-                    if (preparedStatement != null)
-                    {
+            finally {
+                try {
+                    if (preparedStatement != null) {
                         preparedStatement.close();
                     }
-
-                    if (connection != null)
-                    {
+                    if (connection != null) {
                         connection.close();
                     }
                 }
-                catch(Exception exception)
-                {
+                catch(Exception exception) {
                     exception.printStackTrace();
                 }
-
             }
             return null;
         }
-        protected void onPostExecute(Void result)
-        {
+        protected void onPostExecute(Void result) {
             login_Username.setText("");
             login_UserPassword.setText("");
             super.onPostExecute(result);

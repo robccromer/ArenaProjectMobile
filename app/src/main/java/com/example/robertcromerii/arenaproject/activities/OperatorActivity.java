@@ -105,5 +105,4 @@ public class OperatorActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

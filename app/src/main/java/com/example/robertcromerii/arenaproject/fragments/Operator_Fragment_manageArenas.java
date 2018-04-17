@@ -125,7 +125,6 @@ public class Operator_Fragment_manageArenas extends Fragment
         DeleteDesiredArenaBackground deleteDesiredArenaBackground = new DeleteDesiredArenaBackground(arenaID);
         deleteDesiredArenaBackground.execute();
     }
-
     private class InsertArenaBackground extends AsyncTask<Void,Void,Void> {
         private String ET_createArenaValue = ET_createArena.getText().toString().trim();
         private PreparedStatement preparedStatement = null;
@@ -138,7 +137,6 @@ public class Operator_Fragment_manageArenas extends Fragment
             {
                 connection = DBHandler.getConnection();
                 String insertNewArena = "INSERT INTO arena (ArenaName) VALUES(?)";
-
                 preparedStatement = connection.prepareStatement(insertNewArena);
                 preparedStatement.setString(1, ET_createArenaValue);
                 preparedStatement.execute();
